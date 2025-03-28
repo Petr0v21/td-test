@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
+import { seed } from './seed';
 dotenv.config();
 
 mongoose.set('strictQuery', false);
@@ -9,6 +10,7 @@ const dbConnect = () => {
 
   mongoose.connection.on('connected', () => {
     console.log('Connected to database sucessfully');
+    seed();
   });
 
   mongoose.connection.on('error', (err) => {
