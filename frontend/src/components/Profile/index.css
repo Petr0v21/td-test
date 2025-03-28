@@ -1,0 +1,10 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.profile p {
+  margin: 0;
+}

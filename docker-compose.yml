@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=examplepassword
+      - MONGO_INITDB_DATABASE=mydatabase
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+
+  backend:
+    build: ./backend
+    container_name: backend
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://root:examplepassword@mongodb:27017/mydatabase?authSource=admin
+      - ACCESS_TOKEN_PRIVATE_KEY=ACCESS_TOKEN_PRIVATE_KEY
+      - PASSWORD_HASH_SALT=10
+    ports:
+      - "3000:3000"
+    restart: always
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    environment:
+      - BACKEND_URL=http://backend:3000
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  mongodb_data:

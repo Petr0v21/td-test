@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em 2em;
+  width: calc(100% - 4em);
+  border-bottom: 1px solid black;
+}
+
+.header-logo {
+  width: auto;
+  height: 42px;
+}
+
+.header-account-container {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
